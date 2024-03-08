@@ -4,6 +4,7 @@ import ch.uzh.ifi.hase.soprafs24.constant.UserStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Internal User Representation
@@ -22,20 +23,31 @@ public class User implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  @Column(nullable = false)
-  private String name;
 
   @Column(nullable = false, unique = true)
   private String username;
 
-  @Column(nullable = false, unique = true)
-  private String token;
+  @Column(nullable = false, unique = false)
+  private String password;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = false)
   private UserStatus status;
+
+  @Column(nullable = false, unique = false)
+  private LocalDate creationDate;
+
+  @Column(nullable = true, unique = false)
+  private LocalDate birthday;
+
+  public LocalDate getBirthday() {
+      return birthday;
+  }
+
+  public void setBirthday(LocalDate birthday) {
+      this.birthday = birthday;
+  }
 
   public Long getId() {
     return id;
@@ -45,12 +57,12 @@ public class User implements Serializable {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getPassword() {
+    return password;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public String getUsername() {
@@ -61,14 +73,6 @@ public class User implements Serializable {
     this.username = username;
   }
 
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(String token) {
-    this.token = token;
-  }
-
   public UserStatus getStatus() {
     return status;
   }
@@ -76,4 +80,13 @@ public class User implements Serializable {
   public void setStatus(UserStatus status) {
     this.status = status;
   }
+
+  public LocalDate getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(LocalDate creationDate) {
+    this.creationDate = creationDate;
+  }
 }
+
